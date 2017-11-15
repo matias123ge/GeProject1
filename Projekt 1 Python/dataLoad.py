@@ -15,7 +15,6 @@ def dataLoad(filename):
     for i in range (len(matrix)): 
         if (matrix[i,0]<10) or (matrix[i,0]>60) :
             print("Temperature must be a valid number between 10-60, error in column 1 row {:f}".format(i))
-            print("")
             index=np.hstack((index,np.array([i])))
         else:
             pass
@@ -23,7 +22,6 @@ def dataLoad(filename):
     for i in range (len(matrix)): 
         if matrix[i,1]<0:
             print("Bacteria Growth Rate must be a number higher than or equal to 0, error in column 2 row {:f}".format(i))
-            print("")
             index=np.hstack((index,np.array([i])))
         else:
             pass
@@ -31,7 +29,6 @@ def dataLoad(filename):
     for i in range (len(matrix)): 
         if matrix[i,2]<1 or matrix[i,2]>4:
             print("Bacteria Category must be 1,2,3 or 4, error in column 3 row {:f}".format(i))
-            print("")
             index=np.hstack((index,np.array([i])))
         else:
             pass

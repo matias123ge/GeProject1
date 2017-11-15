@@ -20,7 +20,7 @@ def dataPlot(data):
     #Data treatment for number of bacteria
     y = np.delete(np.bincount(data[:,2].astype(int)),0) #Count the number of occurrences of each integer in 3rd column of the data matrix
     bacteria = np.array(["Salmonella E.","Bacillus Cereus","Listeria","Brochothrix T."])
-    x_pos = np.arange(len(bacteria))
+    x_pos = np.arange(len(bacteria)) #Define an array that shows the location in the x-direction for the different species
     plt.bar(x_pos, y, align="center", alpha = 0.5)
     plt.xticks(x_pos,bacteria)
     plt.ylabel("Number of occurences")
