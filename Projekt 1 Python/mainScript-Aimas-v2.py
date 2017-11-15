@@ -47,6 +47,7 @@ while True:
         data2=np.array([0,0,0])
         data3=np.array([0,0,0])
         data4=np.array([0,0,0])
+<<<<<<< HEAD
         while not(np.any(choice ==np.arange(len(options3))+1)):
             try:
                 print("----------")
@@ -55,6 +56,14 @@ while True:
                     print(" {:s}".format(options3[i]))
                 choice= int(input("Enter the number corresponding to bacteria type:"))
     
+=======
+        print("----------")
+        for i in range(len(options3)):
+            print(" {:s}".format(options3[i]))
+        while not(np.any(choice ==np.arange(len(options3))+1)):
+            try:   
+                choice= int(input("Enter the number corresponding to bacteria type:"))
+>>>>>>> 502d92d14f38a45f48cdb045aeef99d7f84c4f24
                 if choice==1:
                     data1=databackup[np.where(databackup[:,2]==1)]
                     choice=0
