@@ -38,6 +38,9 @@ def dataPlot(data):
     x_BT = matrix_BT[:,0] 
     y_BT = matrix_BT[:,1]
     
+    matrixList = np.array([matrix_SE, matrix_BC, matrix_L, matrix_BT]) #make an index for where we find if some data arrays for certain bacteria is empty
+    index = np.where(matrixList != 0)
+    
     #Specify plots and execute
     plt.plot(x_SE,y_SE, "red")
     plt.plot(x_BC,y_BC,"blue")
