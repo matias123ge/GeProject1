@@ -18,7 +18,7 @@ def dataPlot(data):
     matrix_BT = data[np.where(data[:,2] == 4)] #Brochothrix Thermosphacta
     
     #Data treatment for number of bacteria
-    y = np.delete(np.bincount(data[:,2].astype(int)),0) #Count the number of occurrences of each integer in 3rd column of the data matrix
+    y = np.array([len(matrix_SE),len(matrix_BC),len(matrix_L),len(matrix_BT)]) #Count the number of occurrences of each integer in 3rd column of the data matrix
     bacteria = np.array(["Salmonella E.","Bacillus Cereus","Listeria","Brochothrix T."])
     x_pos = np.arange(len(bacteria)) #Define an array that shows the location in the x-direction for the different species
     plt.bar(x_pos, y, align="center", alpha = 0.5)
@@ -39,23 +39,22 @@ def dataPlot(data):
     y_BT = matrix_BT[:,1]
     
     #make an index for where we find if some data arrays, for certain bacteria, is empty
-    index = np.array([len(matrix_SE),len(matrix_BC),len(matrix_L),len(matrix_BT)])
-    index2 = index > 0
+    index = y > 0
     
     #plot the graphs that are "plottble"
-    if index2[0] == True:
+    if index[0] == True:
         plt.plot(x_SE,y_SE, "red")
     else:
         pass
-    if index2[1] == True:
+    if index[1] == True:
         plt.plot(x_BC,y_BC,"blue")
     else:
         pass
-    if index2[2] == True:
+    if index[2] == True:
         plt.plot(x_L,y_L,"green")
     else:
         pass
-    if index2[3] == True:
+    if index[3] == True:
         plt.plot(x_BT,y_BT,"black")
     else:
         pass
@@ -67,6 +66,6 @@ def dataPlot(data):
     plt.xlim([10,60]) #limits in the x-direction
     plt.ylim([0,max(data[:,1] + np.mean(data[:,1]/10))]) #limit in the y-direction
     legends = np.array(["Salmonella Enterica", "Bacillus Cereus", "Listeria", "Brochothrix Thermosphacta"])
-    plt.legend(legends[index2],loc='center left', bbox_to_anchor=(1, 0.5),fancybox=True)
+    plt.legend(legends[index],loc='center left', bbox_to_anchor=(1, 0.5),fancybox=True)
     #plt.legend(["Salmonella Enterica", "Bacillus Cereus", "Listeria", "Brochothrix Thermosphacta"],loc='center left', bbox_to_anchor=(1, 0.5),fancybox=True) #legend specifications
     plt.show()
