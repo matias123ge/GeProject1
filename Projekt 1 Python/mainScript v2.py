@@ -12,14 +12,19 @@ from dataLoad import *
 # Start
 print("")
 print("Welcome to your favourite Bacterial Growth calculator. Please type a number corresponding to your desired action:")
-if "data" in locals():
-    print(data)
 # Defining menu options
 options = np.array(["Load data", "Filter data", "Display statistics", "Generate plots","Show Data", "Quit"])
 while True:   
     print("")
     print("-------------------------------------------------")
     print("")
+    if "countarrayfinal" in locals():
+        print("Active filters:")
+        print(countarrayfinal)
+    if "LB" in locals():
+        print("Growth filters")
+        print("Lower bound {}".format(LB))
+        print("Upper bound {}".format(UB))
     for i in range(len(options)):
         print("{:d}. {:s}".format(i+1, options[i])) #Display menu options
     #Get a userinput to determine which function to execute
