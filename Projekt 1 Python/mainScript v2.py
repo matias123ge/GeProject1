@@ -42,7 +42,7 @@ while True:
             print("The file is not found. Please check if your typed correctly or if the file exists in the folder.")
     elif choice == 2: #Additional filtering if input is 2
         choice=0
-        options3 = np.array(["1. Salmonella enterica","2. Bacillus cereus","3. Listeria","4. Brochothrix thermosphacta", "5. All bacteria","6. Choose growth filter"])
+        options3 = np.array(["1. Salmonella enterica","2. Bacillus cereus","3. Listeria","4. Brochothrix thermosphacta", "5. All bacteria","6. Choose growth filter","7. Continue without growth filer","8. Return to main menu"])
         data1=np.array([0,0,0])
         data2=np.array([0,0,0])
         data3=np.array([0,0,0])
@@ -51,25 +51,36 @@ while True:
         for i in range(len(options3)):
             print(" {:s}".format(options3[i]))
         while not(np.any(choice ==np.arange(len(options3))+1)):
+            datacount=np.array([])
             try:   
                 choice= int(input("Enter the number corresponding to bacteria type:"))
                 if choice==1:
                     data1=databackup[np.where(databackup[:,2]==1)]
+                    datacount=np.hstack(choice)
                     choice=0
                 elif choice==2:
                     data2=databackup[np.where(databackup[:,2]==2)]
+                    datacount=np.hstack(choice)
                     choice=0
                 elif choice==3:
                     data3=databackup[np.where(databackup[:,2]==3)]
+                    datacount=np.hstack(choice)
                     choice=0
                 elif choice==4:
                     data4=databackup[np.where(databackup[:,2]==4)]
+                    datacount=np.hstack(choice)
                     choice=0
                 elif choice==5:
                     data=databackup
+                    datacount=np.hstack(choice)
                     break
-                elif choice==6:
+                elif choice==6 or choice==7:
+                    datacount=np.unique(datacount)
+                    print("These options have been chosen:")
+                    print(datacount)
                     data=np.vstack((data1,data2,data3,data4))
+                    break
+                elif choice==8 :
                     break
                 elif choice < 0:
                     raise ValueError
@@ -78,6 +89,8 @@ while True:
             except ValueError:
                     print("An ERROR OCCURED: Please pick a valid number.")
         while True:
+            if choice==7 or choice==8 :
+                break 
             try:
                 LB=float(input("Please insert you lower bound:"))
                 UB=float(input("Please insert you upper bound:"))
