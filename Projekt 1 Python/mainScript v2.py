@@ -12,6 +12,8 @@ from dataLoad import *
 # Start
 print("")
 print("Welcome to your favourite Bacterial Growth calculator. Please type a number corresponding to your desired action:")
+if "data" in locals():
+    print(data)
 # Defining menu options
 options = np.array(["Load data", "Filter data", "Display statistics", "Generate plots","Show Data", "Quit"])
 while True:   
@@ -83,8 +85,8 @@ while True:
                     countarrayfinal=np.unique(countarrayfinal)
                     print("These options have been chosen:")
                     print(countarrayfinal)
-                    data=np.vstack((data1,data2,data3,data4))
-                    
+                    datafinal=np.vstack((data1,data2,data3,data4))
+                    data=np.delete(datafinal,np.where(datafinal[:,2]<1),axis=0)
                     break
                 elif choice==8 :
                     break
@@ -133,8 +135,7 @@ while True:
             except IndexError:
                     print("An ERROR OCCURED: Please pick a valid number.")
             except ValueError:
-                    print("An ERROR OCCURED: Please pick a valid number.")
-                    
+                    print("An ERROR OCCURED: Please pick a valid number.")  
     elif choice == 4: #Plot data if input is 4
         print("")
         try:
@@ -145,7 +146,7 @@ while True:
     elif choice ==5:
         print("")
         print(data)
-    elif choice == 6: #Close the script, if input is 5
+    elif choice == 6: #Close the script, if input is 6
         print("")
         print("Ciaooo bella!")
         break
