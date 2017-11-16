@@ -14,11 +14,14 @@ print("")
 print("Welcome to your favourite Bacterial Growth calculator. Please type a number corresponding to your desired action:")
 # Defining menu options
 options = np.array(["Load data", "Filter data", "Display statistics", "Generate plots","Show Data","Clear Filters", "Quit"])
+#Variable used to decide whether or not to clear filters.
 aimas=3
+#Start the menu
 while True:   
     print("")
     print("-------------------------------------------------")
     print("")
+    #Display active filters, if any
     if "countarrayfinal" in locals():
         print("Active filters:")
         print(countarrayfinal)
@@ -26,13 +29,15 @@ while True:
         print("Growth filters")
         print("Lower bound {}".format(LB))
         print("Upper bound {}".format(UB))
+    #Display menu options
     for i in range(len(options)):
-        print("{:d}. {:s}".format(i+1, options[i])) #Display menu options
+        print("{:d}. {:s}".format(i+1, options[i]))
     #Get a userinput to determine which function to execute
     choice = 0
     while not(np.any(choice == np.arange(len(options))+1)):
         try:
-            choice = float(input("Please choose a menu item: ")) #Choose in the menu. 
+            #Choose in the menu.
+            choice = float(input("Please choose a menu item: ")) 
         except ValueError:
             print("That is not a number, dude!")
             choice = 0
@@ -45,16 +50,20 @@ while True:
             filename = input("Please enter the name of the file you want to load: ")
             print("")
             data = dataLoad(filename)
+            #Variable to return to original data set.
             databackup=data
         except FileNotFoundError:
             print("The file is not found. Please check if your typed correctly or if the file exists in the folder.")
     elif choice == 2: #Additional filtering if input is 2
+        # Check wheter or not data has been loaded before filtering
         if "databackup" not in locals():
             print("An ERROR OCCURED: Please load data using the 'Load data' function")
             pass
         elif "databackup" in locals():
+            #Define filter options for Bacteria type
             choice=0
             options3 = np.array(["1. Salmonella enterica","2. Bacillus cereus","3. Listeria","4. Brochothrix thermosphacta", "5. All bacteria","6. Choose growth filter","7. Continue without growth filer","8. Return to main menu", "9. Remove current growth filter"])
+            #Arrays to filter in
             data1=np.array([0,0,0])
             data2=np.array([0,0,0])
             data3=np.array([0,0,0])
@@ -65,11 +74,13 @@ while True:
             countarray4=np.array([])
             countarray5=np.array([])
             print("----------")
+            #Start of filter loop
             for i in range(len(options3)):
                 print(" {:s}".format(options3[i]))
             while not(np.any(choice ==np.arange(len(options3))+1)):
                 try:
                     choice= int(input("Enter the number corresponding to bacteria type or option:"))
+                    #Filter choice after user input
                     if choice==1:
                         data1=databackup[np.where(databackup[:,2]==1)]
                         countarray1=options3[choice-1]
@@ -92,7 +103,9 @@ while True:
                         countarrayfinal=countarray5
                         break
                     elif choice==6 or choice==7:
+                        #Variable to definer whether or not filters can be cleared:
                         aimas=1
+                        #Make the final array with the filtered data and print types chosen.
                         countarrayfinal=np.hstack((countarray1,countarray2,countarray3,countarray4))
                         print("These options have been chosen:")
                         print(countarrayfinal)
@@ -102,6 +115,7 @@ while True:
                         break
                     elif choice==8 :
                         break
+                    #Make user unable to remove growth boundaries if there are none:
                     elif choice==9:
                         if "LB" in locals(): 
                             data=databackup1
@@ -120,6 +134,7 @@ while True:
                 if choice==7 or choice==8 or choice == 9:
                     break 
                 try:
+                    #Insert lower and 
                     LB=float(input("Please insert you lower bound:"))
                     UB=float(input("Please insert you upper bound:"))
                     data=data[np.where(np.logical_and(data[:,1]>LB, data[:,1]<UB))]
@@ -171,7 +186,7 @@ while True:
     elif choice ==5:
         print("")
         print(data)
-    elif choice == 6: #Close the script, if input is 6
+    elif choice == 6: #Clear data filters 
             if aimas==1:
                 del(countarrayfinal)
                 del(aimas)
