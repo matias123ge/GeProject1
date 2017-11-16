@@ -93,8 +93,7 @@ while True:
                         break
                     elif choice==6 or choice==7:
                         aimas=1
-                        countarrayfinal=np.hstack((countarray1,countarray2,countarray3,countarray4,countarray5))
-                        countarrayfinal=np.unique(countarrayfinal)
+                        countarrayfinal=np.hstack((countarray1,countarray2,countarray3,countarray4))
                         print("These options have been chosen:")
                         print(countarrayfinal)
                         datafinal=np.vstack((data1,data2,data3,data4))
@@ -104,9 +103,13 @@ while True:
                     elif choice==8 :
                         break
                     elif choice==9:
-                        data=databackup1
-                        del(LB)
-                        break
+                        if "LB" in locals(): 
+                            data=databackup1
+                            del(LB)
+                            break
+                        elif "LB" not in locals():
+                            print("AN ERROR OCCURED: No current growth boundaries")
+                            break
                     elif choice < 0:
                         raise ValueError
                 except IndexError:
