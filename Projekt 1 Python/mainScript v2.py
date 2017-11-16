@@ -9,7 +9,7 @@ from dataPlot import *
 from dataStatistics import * 
 from dataLoad import *
 
-# Start
+# Start main script by opening the main menu
 print("")
 print("Welcome to your favourite Bacterial Growth calculator. Please type a number corresponding to your desired action:")
 # Defining menu options
@@ -84,7 +84,6 @@ while True:
                     print("These options have been chosen:")
                     print(countarrayfinal)
                     data=np.vstack((data1,data2,data3,data4))
-                    
                     break
                 elif choice==8 :
                     break
