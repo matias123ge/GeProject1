@@ -56,7 +56,6 @@ while True:
         for i in range(len(options3)):
             print(" {:s}".format(options3[i]))
         while not(np.any(choice ==np.arange(len(options3))+1)):
-            datacount=np.array([])
             try:
                 choice= int(input("Enter the number corresponding to bacteria type:"))
                 if choice==1:

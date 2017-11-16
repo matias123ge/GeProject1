@@ -38,7 +38,7 @@ def dataPlot(data):
     x_BT = matrix_BT[:,0] 
     y_BT = matrix_BT[:,1]
     
-    #make an index for where we find if some data arrays for certain bacteria is empty
+    #make an index for where we find if some data arrays, for certain bacteria, is empty
     index = np.array([len(matrix_SE),len(matrix_BC),len(matrix_L),len(matrix_BT)])
     index2 = index > 0
     
@@ -61,7 +61,7 @@ def dataPlot(data):
         pass
 
     #Execute plots
-    plt.title("Coorelation between temperature and bacteria growth rate") #Title
+    plt.title("Correlation between temperature and bacteria growth rate") #Title
     plt.xlabel("Temperature in degrees Celsius") #x-label
     plt.ylabel("Growth rate of bacteria") #y-label
     plt.xlim([10,60]) #limits in the x-direction
