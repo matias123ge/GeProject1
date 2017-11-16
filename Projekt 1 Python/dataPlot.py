@@ -26,7 +26,7 @@ def dataPlot(data):
     plt.ylabel("Number of occurences")
     plt.title("Plot of occurrences of different bacteria")
     plt.show()
-    
+
     #Data treatment for growth rate by temperature    
     #Define x- and y-data from the different sets of bacteria
     x_SE = matrix_SE[:,0] 
@@ -38,18 +38,35 @@ def dataPlot(data):
     x_BT = matrix_BT[:,0] 
     y_BT = matrix_BT[:,1]
     
-    matrixList = np.array([matrix_SE, matrix_BC, matrix_L, matrix_BT]) #make an index for where we find if some data arrays for certain bacteria is empty
-    index = np.where(matrixList != 0)
+    #make an index for where we find if some data arrays for certain bacteria is empty
+    index = np.array([len(matrix_SE),len(matrix_BC),len(matrix_L),len(matrix_BT)])
+    index2 = index > 0
     
-    #Specify plots and execute
-    plt.plot(x_SE,y_SE, "red")
-    plt.plot(x_BC,y_BC,"blue")
-    plt.plot(x_L,y_L,"green")
-    plt.plot(x_BT,y_BT,"black")
+    #plot the graphs that are "plottble"
+    if index2[0] == True:
+        plt.plot(x_SE,y_SE, "red")
+    else:
+        pass
+    if index2[1] == True:
+        plt.plot(x_BC,y_BC,"blue")
+    else:
+        pass
+    if index2[2] == True:
+        plt.plot(x_L,y_L,"green")
+    else:
+        pass
+    if index2[3] == True:
+        plt.plot(x_BT,y_BT,"black")
+    else:
+        pass
+
+    #Execute plots
     plt.title("Coorelation between temperature and bacteria growth rate") #Title
     plt.xlabel("Temperature in degrees Celsius") #x-label
     plt.ylabel("Growth rate of bacteria") #y-label
     plt.xlim([10,60]) #limits in the x-direction
     plt.ylim([0,max(data[:,1] + np.mean(data[:,1]/10))]) #limit in the y-direction
-    plt.legend(["Salmonella Enterica", "Bacillus Cereus", "Listeria", "Brochothrix Thermosphacta"],loc='center left', bbox_to_anchor=(1, 0.5),fancybox=True) #legend specifications
+    legends = np.array(["Salmonella Enterica", "Bacillus Cereus", "Listeria", "Brochothrix Thermosphacta"])
+    plt.legend(legends[index2],loc='center left', bbox_to_anchor=(1, 0.5),fancybox=True)
+    #plt.legend(["Salmonella Enterica", "Bacillus Cereus", "Listeria", "Brochothrix Thermosphacta"],loc='center left', bbox_to_anchor=(1, 0.5),fancybox=True) #legend specifications
     plt.show()
