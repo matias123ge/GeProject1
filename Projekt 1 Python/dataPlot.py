@@ -39,7 +39,7 @@ def dataPlot(data):
     y_BT = matrix_BT[:,1]
     
     #make an index for where we find if some data arrays, for certain bacteria, is empty
-    index = y > 0
+    index = y > 1
     
     #plot the graphs that are "plottble"
     if index[0] == True:

@@ -13,7 +13,8 @@ from dataLoad import *
 print("")
 print("Welcome to your favourite Bacterial Growth calculator. Please type a number corresponding to your desired action:")
 # Defining menu options
-options = np.array(["Load data", "Filter data", "Display statistics", "Generate plots","Show Data", "Quit"])
+options = np.array(["Load data", "Filter data", "Display statistics", "Generate plots","Show Data","Clear Filters", "Quit"])
+aimas=3
 while True:   
     print("")
     print("-------------------------------------------------")
@@ -48,99 +49,115 @@ while True:
         except FileNotFoundError:
             print("The file is not found. Please check if your typed correctly or if the file exists in the folder.")
     elif choice == 2: #Additional filtering if input is 2
-        choice=0
-        options3 = np.array(["1. Salmonella enterica","2. Bacillus cereus","3. Listeria","4. Brochothrix thermosphacta", "5. All bacteria","6. Choose growth filter","7. Continue without growth filer","8. Return to main menu"])
-        data1=np.array([0,0,0])
-        data2=np.array([0,0,0])
-        data3=np.array([0,0,0])
-        data4=np.array([0,0,0])
-        countarray1=np.array([])
-        countarray2=np.array([])
-        countarray3=np.array([])
-        countarray4=np.array([])
-        countarray5=np.array([])
-        print("----------")
-        for i in range(len(options3)):
-            print(" {:s}".format(options3[i]))
-        while not(np.any(choice ==np.arange(len(options3))+1)):
-            try:
-                choice= int(input("Enter the number corresponding to bacteria type:"))
-                if choice==1:
-                    data1=databackup[np.where(databackup[:,2]==1)]
-                    countarray1=options3[choice-1]
-                    choice=0
-                elif choice==2:
-                    data2=databackup[np.where(databackup[:,2]==2)]
-                    countarray2=options3[choice-1]
-                    choice=0
-                elif choice==3:
-                    data3=databackup[np.where(databackup[:,2]==3)]
-                    countarray3=options3[choice-1]
-                    choice=0
-                elif choice==4:
-                    data4=databackup[np.where(databackup[:,2]==4)]
-                    countarray4=options3[choice-1]
-                    choice=0
-                elif choice==5:
-                    data=databackup
-                    countarray5=options3[choice-1]
-                    break
-                elif choice==6 or choice==7:
-                    countarrayfinal=np.hstack((countarray1,countarray2,countarray3,countarray4,countarray5))
-                    countarrayfinal=np.unique(countarrayfinal)
-                    print("These options have been chosen:")
-                    print(countarrayfinal)
-                    datafinal=np.vstack((data1,data2,data3,data4))
-                    data=np.delete(datafinal,np.where(datafinal[:,2]<1),axis=0)
-                    break
-                elif choice==8 :
-                    break
-                elif choice < 0:
-                    raise ValueError
-            except IndexError:
-                    print("An ERROR OCCURED: Please pick a valid number.")
-            except ValueError:
-                    print("An ERROR OCCURED: Please pick a valid number.")
-        while True:
-            if choice==7 or choice==8 :
-                break 
-            try:
-                LB=float(input("Please insert you lower bound:"))
-                UB=float(input("Please insert you upper bound:"))
-                data=data[np.where(np.logical_and(data[:,1]>LB, data[:,1]<UB))]
-                break
-            except ValueError:
-                print("That is not a number, dude!")
+        if "databackup" not in locals():
+            print("An ERROR OCCURED: Please load data using the 'Load data' function")
             pass
-        
+        elif "databackup" in locals():
+            choice=0
+            options3 = np.array(["1. Salmonella enterica","2. Bacillus cereus","3. Listeria","4. Brochothrix thermosphacta", "5. All bacteria","6. Choose growth filter","7. Continue without growth filer","8. Return to main menu", "9. Remove current growth filter"])
+            data1=np.array([0,0,0])
+            data2=np.array([0,0,0])
+            data3=np.array([0,0,0])
+            data4=np.array([0,0,0])
+            countarray1=np.array([])
+            countarray2=np.array([])
+            countarray3=np.array([])
+            countarray4=np.array([])
+            countarray5=np.array([])
+            print("----------")
+            for i in range(len(options3)):
+                print(" {:s}".format(options3[i]))
+            while not(np.any(choice ==np.arange(len(options3))+1)):
+                try:
+                    choice= int(input("Enter the number corresponding to bacteria type or option:"))
+                    if choice==1:
+                        data1=databackup[np.where(databackup[:,2]==1)]
+                        countarray1=options3[choice-1]
+                        choice=0
+                    elif choice==2:
+                        data2=databackup[np.where(databackup[:,2]==2)]
+                        countarray2=options3[choice-1]
+                        choice=0
+                    elif choice==3:
+                        data3=databackup[np.where(databackup[:,2]==3)]
+                        countarray3=options3[choice-1]
+                        choice=0
+                    elif choice==4:
+                        data4=databackup[np.where(databackup[:,2]==4)]
+                        countarray4=options3[choice-1]
+                        choice=0
+                    elif choice==5:
+                        data=databackup
+                        countarray5=options3[choice-1]
+                        countarrayfinal=countarray5
+                        break
+                    elif choice==6 or choice==7:
+                        aimas=1
+                        countarrayfinal=np.hstack((countarray1,countarray2,countarray3,countarray4,countarray5))
+                        countarrayfinal=np.unique(countarrayfinal)
+                        print("These options have been chosen:")
+                        print(countarrayfinal)
+                        datafinal=np.vstack((data1,data2,data3,data4))
+                        data=np.delete(datafinal,np.where(datafinal[:,2]<1),axis=0)
+                        databackup1=np.delete(datafinal,np.where(datafinal[:,2]<1),axis=0)
+                        break
+                    elif choice==8 :
+                        break
+                    elif choice==9:
+                        data=databackup1
+                        del(LB)
+                        break
+                    elif choice < 0:
+                        raise ValueError
+                except IndexError:
+                        print("An ERROR OCCURED: Please pick a valid number.")
+                except ValueError:
+                        print("An ERROR OCCURED: Please pick a valid number.")
+            while True:
+                if choice==7 or choice==8 or choice == 9:
+                    break 
+                try:
+                    LB=float(input("Please insert you lower bound:"))
+                    UB=float(input("Please insert you upper bound:"))
+                    data=data[np.where(np.logical_and(data[:,1]>LB, data[:,1]<UB))]
+                    aimas=2
+                    break
+                except ValueError:
+                    print("That is not a number, dude!")
+                pass
+            
     elif choice == 3: #Open statistics menu, if input is 3
         #Show second menu that gives you the different types of statistics available
-        choice = 0
-        options2 = np.array(["Mean Temperature","Mean Growth Rate","Std Temperature","Std Growth Rate", "Rows","Mean Cold Growth Rate", "Mean Hot Growth Rate","Return"])
-        while not(np.any(choice == np.arange(len(options2))+1)): #make a while loop, that stays in the statistics menu, until the user wishes to return to the main menu
-            try:
-                print("-------------------------------------------------")
-                print("Please type the following type of statistic or action you desire, as stated in the list below:")
-                for i in range(len(options2)):
-                    print("{:d}. {:s}".format(i+1, options2[i])) #Display menu options
-                choice = int(input("Please enter your desired action: "))
-                statistics = options2[choice-1]
-                if np.any(choice == np.array([1,2,3,4,5,6,7])):
-                    stats = dataStatistics(data, statistics)
-                    print("")
-                    print("Calculated value:")
-                    print(stats) #print the statistic
-                    choice = 0
-                elif choice == 8:
-                    break
-                elif choice < 0:
-                    raise ValueError
-            #except UnboundLocalError:
-                #print("An ERROR OCCURED: Please load data using the 'Load data' function.")
-            except IndexError:
-                    print("An ERROR OCCURED: Please pick a valid number.")
-            except ValueError:
-                    print("An ERROR OCCURED: Please pick a valid number.")  
+        if "databackup" not in locals():
+            print("An ERROR OCCURED: Please load data using the 'Load data' function")
+            pass
+        elif "databackup" in locals():
+            choice = 0
+            options2 = np.array(["Mean Temperature","Mean Growth Rate","Std Temperature","Std Growth Rate", "Rows","Mean Cold Growth Rate", "Mean Hot Growth Rate","Return"])
+            while not(np.any(choice == np.arange(len(options2))+1)): #make a while loop, that stays in the statistics menu, until the user wishes to return to the main menu
+                try:
+                    print("-------------------------------------------------")
+                    print("Please type the following type of statistic or action you desire, as stated in the list below:")
+                    for i in range(len(options2)):
+                        print("{:d}. {:s}".format(i+1, options2[i])) #Display menu options
+                    choice = int(input("Please enter your desired action: "))
+                    statistics = options2[choice-1]
+                    if np.any(choice == np.array([1,2,3,4,5,6,7])):
+                        stats = dataStatistics(data, statistics)
+                        print("")
+                        print("Calculated value:")
+                        print(stats) #print the statistic
+                        choice = 0
+                    elif choice == 8:
+                        break
+                    elif choice < 0:
+                        raise ValueError
+                #except UnboundLocalError:
+                    #print("An ERROR OCCURED: Please load data using the 'Load data' function.")
+                except IndexError:
+                        print("An ERROR OCCURED: Please pick a valid number.")
+                except ValueError:
+                        print("An ERROR OCCURED: Please pick a valid number.") 
     elif choice == 4: #Plot data if input is 4
         print("")
         try:
@@ -152,6 +169,22 @@ while True:
         print("")
         print(data)
     elif choice == 6: #Close the script, if input is 6
+            if aimas==1:
+                del(countarrayfinal)
+                del(aimas)
+                print("Filters Cleared")
+                data=databackup
+            elif aimas==2:
+                del(LB)
+                del(UB)
+                del(countarrayfinal)
+                del(aimas)
+                print("Filters Cleared")
+                data=databackup
+            elif aimas==3:
+                print("No active filters")
+                pass
+    elif choice ==7:
         print("")
         print("Ciaooo bella!")
         break
