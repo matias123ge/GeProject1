@@ -188,11 +188,13 @@ while True:
         print(data)
     elif choice == 6: #Clear data filters 
             if aimas==1:
+                #Clear if only bacteria types have been chosen
                 del(countarrayfinal)
                 del(aimas)
                 print("Filters Cleared")
                 data=databackup
             elif aimas==2:
+                #Clear if both bateria type and Growth rate have been chosen
                 del(LB)
                 del(UB)
                 del(countarrayfinal)
@@ -202,6 +204,7 @@ while True:
             elif aimas==3:
                 print("No active filters")
                 pass
+    #Exit program
     elif choice ==7:
         print("")
         print("Ciaooo bella!")
