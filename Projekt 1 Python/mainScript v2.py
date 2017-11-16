@@ -47,44 +47,45 @@ while True:
         data2=np.array([0,0,0])
         data3=np.array([0,0,0])
         data4=np.array([0,0,0])
+        countarray1=np.array([])
+        countarray2=np.array([])
+        countarray3=np.array([])
+        countarray4=np.array([])
+        countarray5=np.array([])
         print("----------")
         for i in range(len(options3)):
             print(" {:s}".format(options3[i]))
         while not(np.any(choice ==np.arange(len(options3))+1)):
             datacount=np.array([])
-            try:   
+            try:
                 choice= int(input("Enter the number corresponding to bacteria type:"))
                 if choice==1:
-                    countarray=np.append(choice)
-                    datacount=np.hstack(countarray)
                     data1=databackup[np.where(databackup[:,2]==1)]
+                    countarray1=options3[choice-1]
                     choice=0
                 elif choice==2:
-                    countarray=np.append(choice)
-                    datacount=np.hstack(countarray)
                     data2=databackup[np.where(databackup[:,2]==2)]
+                    countarray2=options3[choice-1]
                     choice=0
                 elif choice==3:
-                    countarray=np.append(choice)
-                    datacount=np.hstack(countarray)
                     data3=databackup[np.where(databackup[:,2]==3)]
+                    countarray3=options3[choice-1]
                     choice=0
                 elif choice==4:
-                    countarray=np.append(choice)
-                    datacount=np.hstack(countarray)
                     data4=databackup[np.where(databackup[:,2]==4)]
+                    countarray4=options3[choice-1]
                     choice=0
                 elif choice==5:
-                    countarray=np.append(choice)
-                    datacount=np.hstack(countarray)
                     data=databackup
+                    countarray5=options3[choice-1]
                     break
                 elif choice==6 or choice==7:
-                    countarray=np.append(choice)
-                    datacount=np.hstack(countarray)
+                    countarrayfinal=np.hstack((countarray1,countarray2,countarray3,countarray4,countarray5))
+                    countarrayfinal=np.unique(countarrayfinal)
                     print("These options have been chosen:")
-                    print(datacount)
+                    print(countarrayfinal)
                     data=np.vstack((data1,data2,data3,data4))
+                    
                     break
                 elif choice==8 :
                     break
