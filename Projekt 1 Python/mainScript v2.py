@@ -55,27 +55,33 @@ while True:
             try:   
                 choice= int(input("Enter the number corresponding to bacteria type:"))
                 if choice==1:
+                    countarray=np.append(choice)
+                    datacount=np.hstack(countarray)
                     data1=databackup[np.where(databackup[:,2]==1)]
-                    datacount=np.hstack(choice)
                     choice=0
                 elif choice==2:
+                    countarray=np.append(choice)
+                    datacount=np.hstack(countarray)
                     data2=databackup[np.where(databackup[:,2]==2)]
-                    datacount=np.hstack(choice)
                     choice=0
                 elif choice==3:
+                    countarray=np.append(choice)
+                    datacount=np.hstack(countarray)
                     data3=databackup[np.where(databackup[:,2]==3)]
-                    datacount=np.hstack(choice)
                     choice=0
                 elif choice==4:
+                    countarray=np.append(choice)
+                    datacount=np.hstack(countarray)
                     data4=databackup[np.where(databackup[:,2]==4)]
-                    datacount=np.hstack(choice)
                     choice=0
                 elif choice==5:
+                    countarray=np.append(choice)
+                    datacount=np.hstack(countarray)
                     data=databackup
-                    datacount=np.hstack(choice)
                     break
                 elif choice==6 or choice==7:
-                    datacount=np.unique(datacount)
+                    countarray=np.append(choice)
+                    datacount=np.hstack(countarray)
                     print("These options have been chosen:")
                     print(datacount)
                     data=np.vstack((data1,data2,data3,data4))
